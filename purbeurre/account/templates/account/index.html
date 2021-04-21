@@ -1,0 +1,15 @@
+{% extends 'account/base.html' %}
+
+{% block head %}
+<title>Mon Compte</title>
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}<h1>Logged as : {{request.user.email}}</h1>
+{% else %}
+<form method="POST">{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="login">
+</form>
+{% endif %}
+{% endblock %}

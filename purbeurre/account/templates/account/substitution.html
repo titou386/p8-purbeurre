@@ -1,0 +1,17 @@
+{% extends "account/base.html" %}
+
+{% block content %}
+        <h2>Mes substitutions</h2>
+        <table>
+            <tr>
+                <th>Produit à remplacer</th>
+                <th> Produit de substitution</th>
+            </tr>
+            <tr>
+                {% for substitution in substitutions %}
+                    <td>{{ substitution.product_id.name }}</td>
+                    <td>{{ substitution.substitution_id.name }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+{% endblock %}
