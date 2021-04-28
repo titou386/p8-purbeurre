@@ -1,17 +1,34 @@
-{% extends "account/base.html" %}
-
+{% extends "search/base.html" %}
+{% load static %}
 {% block content %}
-        <h2>Mes substitutions</h2>
-        <table>
-            <tr>
-                <th>Produit à remplacer</th>
-                <th> Produit de substitution</th>
-            </tr>
-            <tr>
-                {% for substitution in substitutions %}
-                    <td>{{ substitution.product_id.name }}</td>
-                    <td>{{ substitution.substitution_id.name }}</td>
-                {% endfor %}
-            </tr>
-        </table>
+<header class="masthead3 mw-100 m-0 row align-items-center justify-content-center">
+    <div class="text-white p-2">
+
+            <h3 class="text-center">Mes substitutions</h3>
+            <h4 class="d-none d-sm-block d-print-block">Produits de substitutions sauvegardés</h4>
+            </div>
+</header>
+<content class="row m-0 justify-content-center bg-biscuit">
+            
+                    
+            {% for substitution in substitutions %}
+            <div class="card bg-caramel col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 m-3 p-0 text-center text-moules">
+                <h3 class="rounded-circle nutri-icon nutri-grade-{{ substitution.substitution.nutriscore|lower }}">{{ substitution.substitution.nutriscore|upper }}</h3>
+                <div class="img-product-list-div">
+                <img class="card-img-top" src="{{ substitution.substitution.image_url }}" alt="{{ substitution.substituion.name }} front view">
+                </div>
+                <div class="card-body row align-items-end">
+                    <a class="text-moules col" href="/product/{{ substitution.substitution.id }}"><h6 class="card-title">{{ substitution.substitution.name }}</h6></a>
+                    <form method="POST" class="col" action="{{ substitution.id }}/delete/">{% csrf_token %}<button class="card-text text-moules btn" type="submit"><i class="fas fa-trash-alt"></i> Supprimer de mes produits</button></form>
+                </div>
+            </div>
+            {% endfor %}
+        
+    
+</content>
 {% endblock %}
+
+
+
+
+

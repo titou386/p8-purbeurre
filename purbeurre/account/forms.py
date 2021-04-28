@@ -1,12 +1,19 @@
 from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import AuthenticationForm
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, request, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+    username = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'autofocus': True, 'class':'form-control'}))
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'class':'form-control'}))
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label='Enter Username', min_length=4, max_length=150)
-    email = forms.EmailField(label='Enter email')
-    password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    username = forms.CharField(label='Pseudo', min_length=4, max_length=150, widget=forms.TextInput(attrs={'autofocus': True, 'class':'form-control'}))
+    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs={'class':'form-control'}))
+    password1 = forms.CharField(label='Mot de passe', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(label='Vérification du mot de passe', widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
@@ -38,8 +45,3 @@ class RegisterForm(forms.Form):
             self.cleaned_data['password1']
         )
         return user
-
-
-#    class Meta:
-#        model = User
-#        fields = ['username', 'email', 'password1', 'password2']

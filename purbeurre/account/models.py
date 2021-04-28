@@ -10,9 +10,8 @@ class User(AbstractUser):
 
 
 class Substitution(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, related_name='product', on_delete=models.CASCADE)
-    substitution_id = models.ForeignKey(Product, related_name='substitution', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    substitution = models.ForeignKey(Product, related_name='substitution', on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user_id', 'product_id', 'substitution_id')
+        unique_together = ('user_id', 'substitution_id')

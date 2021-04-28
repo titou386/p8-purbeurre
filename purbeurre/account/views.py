@@ -1,55 +1,51 @@
-#from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect, HttpResponseRedirect
-from django.views.generic import FormView, ListView, View
+from django.shortcuts import render, redirect
+from django.views.generic import FormView, ListView, DeleteView
+from django.views.generic.edit import ProcessFormView
 from django.contrib.auth.views import LoginView
-# from django.contrib.auth import authenticate, login, logout
-# from django.contrib.auth.forms import UserCreationForm
 
-from .models import User, Substitution
+from .models import Substitution
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
-from .forms import RegisterForm
 
+from .forms import RegisterForm, LoginForm
 
 class IndexView(LoginView):
     template_name = "account/index.html"
-#    success_url = "/account/"
-#    form_class = AuthForm
-
+    form_class = LoginForm
 
 
 class RegisterView(FormView):
-#    model = User
-#    fields = ['username', 'email', 'password']
-#    success_url = '/account/'
     form_class = RegisterForm
     template_name = 'account/register.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/account/')
+        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request):
         f = RegisterForm(request.POST)
         if f.is_valid():
             f.save()
-            messages.success(request, 'Account created successfully')
             return redirect('/account/')
         else:
             f = RegisterForm()
-        return render(request, 'account/register.html', {'form': f})
+            messages.error(request, 'Votre compte n\'a pas pu être enregistré')
+        return render(request, '/account/register.html', {'form': f})
 
-#@method_decorator(login_required, name='get_queryset')
 class SubstitutionView(LoginRequiredMixin, ListView):
-#    login_url = '/account/'
     model = Substitution
     template_name = 'account/substitution.html'
-#    redirect_field_name = 'redirect_to'
-
-#    model = Substitution
-#    queryset = Substitution.objects.filter(id=?)
-#    template_name = 'account/substitution.html'
     context_object_name = 'substitutions'
 
     def get_queryset(self):
-#        if self.request.user is None
-#            return redirect('/account/')
-        return Substitution.objects.filter(user_id=self.request.user.id)
+        return super().get_queryset().filter(user=self.request.user)
 
+
+class DeleteView(LoginRequiredMixin, DeleteView):
+    model = Substitution
+    success_url = '/account/substitution/'
+
+class SaveView(LoginRequiredMixin, ProcessFormView):
+    model = Substitution
+    success_url = '/account/substitution/'
