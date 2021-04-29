@@ -55,10 +55,11 @@ content > div.card {
 }
 
 img.card-img-top {
-  max-height: 100%;
-  width: auto;
-  max-width: 100%;
-  vertical-align: middle;
+    max-height: 110px;
+    /* width: auto; */
+    max-width: 206px;
+    /* vertical-align: middle; */
+    object-fit: cover;
 }
 
 .img-product-list-div {

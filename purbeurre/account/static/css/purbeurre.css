@@ -56,6 +56,14 @@ a:hover {
   color: rgba(52, 90, 97, 0.75);
 }
 
+img.card-img-top {
+    max-height: 110px;
+    /* width: auto; */
+    max-width: 206px;
+    /* vertical-align: middle; */
+    object-fit: cover;
+}
+
 hr.divider.border-moules {
   border-color: var(--moules)
 }

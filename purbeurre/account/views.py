@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import FormView, ListView, DeleteView
+from django.views.generic import FormView, ListView, DeleteView, CreateView
 from django.views.generic.edit import ProcessFormView
 from django.contrib.auth.views import LoginView
 
-from .models import Substitution
+from .models import Substitution, User
 from django.contrib import messages
 
 from .forms import RegisterForm, LoginForm
@@ -14,24 +14,15 @@ class IndexView(LoginView):
     form_class = LoginForm
 
 
-class RegisterView(FormView):
+class RegisterView(CreateView):
     form_class = RegisterForm
     template_name = 'account/register.html'
+    success_url = '/account/'
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('/account/')
         return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request):
-        f = RegisterForm(request.POST)
-        if f.is_valid():
-            f.save()
-            return redirect('/account/')
-        else:
-            f = RegisterForm()
-            messages.error(request, 'Votre compte n\'a pas pu être enregistré')
-        return render(request, '/account/register.html', {'form': f})
 
 class SubstitutionView(LoginRequiredMixin, ListView):
     model = Substitution
@@ -46,6 +37,6 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     model = Substitution
     success_url = '/account/substitution/'
 
-class SaveView(LoginRequiredMixin, ProcessFormView):
+class SaveView(LoginRequiredMixin, CreateView):
     model = Substitution
     success_url = '/account/substitution/'
