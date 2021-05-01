@@ -6,65 +6,12 @@
   --rigolo: #86EBE6;
   --caramel: #DE9440;
   --biscuit: #E8A75D;
-  --a_nutriscore: #048141;
-  --b_nutriscore: #85bb2e;
-  --c_nutriscore: #fecb01;
-  --d_nutriscore: #ee8101;
-  --e_nutriscore: #e63e11;
 }
 
 
 body {
   font-family: "Scope One", sans-serif;
   color: white;
-}
-
-.nutri-grade-a {
-  background-color: var(--a_nutriscore);
-}
-
-.nutri-grade-b {
-  background-color: var(--b_nutriscore);
-}
-
-.nutri-grade-c {
-  background-color: var(--c_nutriscore);
-}
-
-.nutri-grade-d {
-  background-color: var(--d_nutriscore);
-}
-
-.nutri-grade-e {
-  background-color: var(--e_nutriscore);
-}
-
-.nutri-icon {
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
-  font-weight: bolder;
-  right: -1rem;
-  top: -1rem;
-  position: absolute;
-}
-
-content > div.card {
-  max-width: 13rem;
-  min-width: 13rem;
-}
-
-img.card-img-top {
-    max-height: 110px;
-    /* width: auto; */
-    max-width: 206px;
-    /* vertical-align: middle; */
-    object-fit: cover;
-}
-
-.img-product-list-div {
-  height: 100px;
-  line-height: 100px;
 }
 
 }
@@ -95,35 +42,39 @@ a:hover {
 }
 
 .bg-moules {
-  background-color: var(--moules);
+  background-color: var(--moules)
 }
 
 .bg-caramel {
-  background-color: var(--caramel);
-}
-
-.bg-biscuit {
-  background-color: var(--biscuit);
+  background-color: var(--caramel)
 }
 
 .text-moules {
-  color: var(--moules);
+  color: var(--moules)
 }
 .text-moules-75 {
   color: rgba(52, 90, 97, 0.75);
 }
 
-hr.divider.border-moules {
-  border-color: var(--moules);
+img.card-img-top {
+    max-height: 110px;
+    /* width: auto; */
+    max-width: 206px;
+    /* vertical-align: middle; */
+    object-fit: cover;
 }
 
-.show#navbarResponsive, .collapsing#navbarResponsive, .light-white-background-rounded {
-  background-color: rgba(255, 255, 255, 0.9);
+hr.divider.border-moules {
+  border-color: var(--moules)
+}
+
+.show#navbarResponsive, .collapsing#navbarResponsive {
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   margin-top: 1rem;
 }
 .text-rooibos {
-  color: var(--rooibos) !important;
+  color: var(--rooibos);
 }
 
 hr.divider {
@@ -156,24 +107,9 @@ hr.divider {
   }*/
 }
 
-.form-control {
-  height: 30px;
-}
-
-
 header.masthead2 {
   background: linear-gradient(to bottom, rgba(196, 85, 37, 0.4) 0%, rgba(196, 85, 37, 0.4) 100%), url("../../static/img/cookware.jpg");
   padding-top: 10rem;
-  padding-bottom: calc(10rem - 4.5rem);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
-}
-
-header.masthead3 {
-  background: linear-gradient(to bottom, rgba(196, 85, 37, 0.7) 0%, rgba(196, 85, 37, 0.7) 100%), url("../../static/img/my-subsitutions-header.png");
-  padding-top: 5rem;
   padding-bottom: calc(10rem - 4.5rem);
   background-position: center;
   background-repeat: no-repeat;
