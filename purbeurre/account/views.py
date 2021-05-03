@@ -24,7 +24,7 @@ class RegisterView(CreateView):
             return redirect('/account/')
         return super().dispatch(request, *args, **kwargs)
 
-class SubstitutionView(LoginRequiredMixin, ListView):
+class MySubstitutionView(LoginRequiredMixin, ListView):
     model = Substitution
     template_name = 'account/substitution.html'
     context_object_name = 'substitutions'
