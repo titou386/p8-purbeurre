@@ -4,23 +4,22 @@
 <header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
     <div class="text-white p-2">
 
-            <h3 class="text-center">Résultats pour :</h3>
-            
+            <h3 class="text-center"></h3>
+
             </div>
 </header>
 <content class="row m-0 justify-content-center bg-biscuit">
             
                     
-            {% for r in results %}
+            {% for s in substitutions %}
             <div class="card bg-caramel col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 m-3 p-0 text-center text-moules">
-                <h3 class="rounded-circle nutri-icon nutri-grade-{{ r.nutriscore|lower }}">{{ r.nutriscore|upper }}</h3>
+                <h3 class="rounded-circle nutri-icon nutri-grade-{{ s.nutriscore|lower }}">{{ s.nutriscore|upper }}</h3>
                 <div class="img-product-list-div">
-                <img class="card-img-top" src="{{ r.image_url }}" alt="{{ r.name }} front view">
+                <img class="card-img-top" src="{{ s.image_url }}" alt="{{ s.name }} front view">
                 </div>
                 <div class="card-body row align-items-end">
-                    <a class="text-moules col" href="/product/{{ r.id }}"><h6 class="card-title">{{ r.name }}</h6></a>
-                    <a class="text-moules d.block w-100" href="/product/{{ r.id }}/substitutions/"><h6 class="card-title">Voir les substitus</h6></a>
-                    
+                    <a class="text-moules col" href="/product/{{ s.id }}"><h6 class="card-title">{{ s.name }}</h6></a>
+                    <form method="POST" class="col" action="/account/substitutions/{{ s.id }}/save/">{% csrf_token %}<button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button></form>
                 </div>
             </div>
             {% endfor %}

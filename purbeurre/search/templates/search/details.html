@@ -1,0 +1,73 @@
+{% extends "search/base.html" %}
+{% load static %}
+{% block content %}
+<header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
+    <div class="text-white p-2">
+
+            <h3 class="text-center"></h3>
+
+            </div>
+</header>
+<content class="row m-0 justify-content-center bg-biscuit">
+            
+                    
+            
+            <div class="row justify-content-md-center">
+                    <div class="col-lg-4 col-md-6 text-center">
+                        <div class="mt-5">
+                            <h3>Nutriscore</h3>
+                            <span>A</span>
+                            <span>B</span>
+                            <span>C</span>
+                            <span>D</span>
+                            <span>E</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 text-center">
+                        <div class="mt-5">
+                            <table class="table table-striped">
+                                <thead>    
+                                    <tr>
+                                        <th>Valeurs nutritionnelles moyennes</th>
+                                        <th>pour 100g</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Energie</td>
+                                        <td>{{details.energy_kcal_100g}}{{details.energy_kcal_100g_unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Matières grasses<br>
+                                            dont acides gras</td>
+                                        <td>{{details.fat_100g}}{{details.fat_100g_unit}}<br>
+                                            {{details.energy_kcal_100g}}{{details.energy_kcal_100g_unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Glucides<br>
+                                            dont sucres</td>
+                                        <td>{{details.carbohydrates_100g}}{{details.carbohydrates_100g_unit}}<br>
+                                            {{details.sugars_100g}}{{details.sugars_100g_unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fibres</td>
+                                        <td>{{details.fiber_100g}}{{details.fiber_100g_unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Protéines</td>
+                                        <td>{{details.proteins_100g}}{{details.proteins_100g_unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sel</td>
+                                        <td>{{detailssalt_100g}}{{details.salt_100g_unit}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            
+        
+    
+</content>
+{% endblock %}
