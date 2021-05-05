@@ -1,73 +1,121 @@
 {% extends "search/base.html" %}
 {% load static %}
+
+{% block head %}
+<style>
+    header.masthead4 {
+  background: linear-gradient(to bottom, rgba(196, 85, 37, 0.7) 0%, rgba(196, 85, 37, 0.7) 100%), url("{{ details.image_url }}");
+  padding-top: 5rem;
+  padding-bottom: calc(10rem - 4.5rem);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
     <div class="text-white p-2">
 
-            <h3 class="text-center"></h3>
+            <h1 class="text-center strong white-text">{{ details.name }}</h1>
 
             </div>
 </header>
 <content class="row m-0 justify-content-center bg-biscuit">
-            
-                    
-            
-            <div class="row justify-content-md-center">
-                    <div class="col-lg-4 col-md-6 text-center">
-                        <div class="mt-5">
-                            <h3>Nutriscore</h3>
-                            <span>A</span>
-                            <span>B</span>
-                            <span>C</span>
-                            <span>D</span>
-                            <span>E</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 text-center">
-                        <div class="mt-5">
-                            <table class="table table-striped">
-                                <thead>    
-                                    <tr>
-                                        <th>Valeurs nutritionnelles moyennes</th>
-                                        <th>pour 100g</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Energie</td>
-                                        <td>{{details.energy_kcal_100g}}{{details.energy_kcal_100g_unit}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Matières grasses<br>
-                                            dont acides gras</td>
-                                        <td>{{details.fat_100g}}{{details.fat_100g_unit}}<br>
-                                            {{details.energy_kcal_100g}}{{details.energy_kcal_100g_unit}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Glucides<br>
-                                            dont sucres</td>
-                                        <td>{{details.carbohydrates_100g}}{{details.carbohydrates_100g_unit}}<br>
-                                            {{details.sugars_100g}}{{details.sugars_100g_unit}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fibres</td>
-                                        <td>{{details.fiber_100g}}{{details.fiber_100g_unit}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Protéines</td>
-                                        <td>{{details.proteins_100g}}{{details.proteins_100g_unit}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sel</td>
-                                        <td>{{detailssalt_100g}}{{details.salt_100g_unit}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            
-        
-    
+    <div class="row justify-content-md-center">
+        <div class="col-lg-6 col-md-6 text-center">
+            <div class="mt-5">
+                {% if details.nutriscore|lower == 'a' %}
+                    <img src="{% static 'img/nutriscore-a.svg' %}" alt="Nutriscore A" />
+                {% elif details.nutriscore|lower == 'b' %}
+                    <img src="{% static 'img/nutriscore-b.svg' %}" alt="Nutriscore B" />
+                {% elif details.nutriscore|lower == 'c' %}
+                    <img src="{% static 'img/nutriscore-c.svg' %}" alt="Nutriscore C" />
+                {% elif details.nutriscore|lower == 'd' %}
+                    <img src="{% static 'img/nutriscore-d.svg' %}" alt="Nutriscore D" />
+                {% elif details.nutriscore|lower == 'e' %}
+                    <img src="{% static 'img/nutriscore-e.svg' %}" alt="Nutriscore E" />
+                {% endif %}
+            </div>
+            <div>
+                <img src="{{ details.image_url }}" Alt="{{ details.name }}" />
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 text-center">
+            <div class="mt-5">
+                <table class="table table-striped">
+                    <thead>    
+                        <tr>
+                            <th>Valeurs nutritionnelles moyennes</th>
+                            <th>pour 100g</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Energie</td>
+                            <td>{% if details.energy_kcal_100g %}
+                                    {{ details.energy_kcal_100g }} {{details.energy_kcal_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Matières grasses</td>
+                            <td>{% if details.fat_100g %}
+                                    {{ details.fat_100g }} {{ details.fat_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dont acides gras</td>
+                            <td>{% if details.energy_kcal_100g %}
+                                    {{ details.energy_kcal_100g }} {{ details.energy_kcal_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Glucides</td>
+                            <td>{% if details.carbohydrates_100g %}
+                                    {{ details.carbohydrates_100g }} {{ details.carbohydrates_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dont sucres</td>
+                            <td>{% if details.sugars_100g %}
+                                    {{ details.sugars_100g }} {{ details.sugars_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fibres</td>
+                            <td>{% if details.fiber_100g %}
+                                    {{ details.fiber_100g }} {{ details.fiber_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Protéines</td>
+                            <td>{% if details.proteins_100g %}
+                                    {{ details.proteins_100g }} {{ details.proteins_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sel</td>
+                            <td>{% if details.salt_100g %}
+                                    {{ details.salt_100g }} {{ details.salt_100g_unit }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div w-100 text-center p-3>
+        <a href="https://world.openfoodfacts.org/product/{{ details.code }}"><button class="btn btn-rooibos">Voir la fiche complete sur OpenFoodFacts</button></a>
+    </div>
 </content>
 {% endblock %}
