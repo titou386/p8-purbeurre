@@ -30,4 +30,4 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=150, unique=True)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product, related_name="categories")

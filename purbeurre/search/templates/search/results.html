@@ -1,10 +1,11 @@
 {% extends "search/base.html" %}
 {% load static %}
 {% block content %}
-<header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
+<header class="masthead5 mw-100 m-0 row align-items-center justify-content-center">
     <div class="text-white p-2">
 
             <h3 class="text-center">Résultats pour :</h3>
+            <h3 class="text-center">{{ query }}
             
             </div>
 </header>
@@ -15,11 +16,11 @@
             <div class="card bg-caramel col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 m-3 p-0 text-center text-moules">
                 <h3 class="rounded-circle nutri-icon nutri-grade-{{ r.nutriscore|lower }}">{{ r.nutriscore|upper }}</h3>
                 <div class="img-product-list-div">
-                <img class="card-img-top" src="{{ r.image_url }}" alt="{{ r.name }} front view">
-                </div>
+                <a href="/product/{{ r.id }}"><img class="card-img-top" src="{{ r.image_url }}" alt="{{ r.name }} front view">
+                </div></a>
                 <div class="card-body row align-items-end">
                     <a class="text-moules col" href="/product/{{ r.id }}"><h6 class="card-title">{{ r.name }}</h6></a>
-                    <a class="text-moules d.block w-100" href="/product/{{ r.id }}/substitutions/"><h6 class="card-title">Voir les substitus</h6></a>
+                    <a class="text-moules d.block w-100" href="/product/{{ r.id }}/substitutions/"><h6 class="card-title">Voir les substituts</h6></a>
                     
                 </div>
             </div>

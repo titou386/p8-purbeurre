@@ -19,28 +19,28 @@
 <header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
     <div class="text-white p-2">
 
-            <h1 class="text-center strong white-text">{{ details.name }}</h1>
+            <h1 class="text-center white-text">{{ details.name|title }}</h1>
 
             </div>
 </header>
 <content class="row m-0 justify-content-center bg-biscuit">
     <div class="row justify-content-md-center">
         <div class="col-lg-6 col-md-6 text-center">
-            <div class="mt-5">
+            <div class="mt-5 py-1">
                 {% if details.nutriscore|lower == 'a' %}
-                    <img src="{% static 'img/nutriscore-a.svg' %}" alt="Nutriscore A" />
+                    <img class="mw-100" src="{% static 'img/nutriscore-a.svg' %}" alt="Nutriscore A" />
                 {% elif details.nutriscore|lower == 'b' %}
-                    <img src="{% static 'img/nutriscore-b.svg' %}" alt="Nutriscore B" />
+                    <img class="mw-100" src="{% static 'img/nutriscore-b.svg' %}" alt="Nutriscore B" />
                 {% elif details.nutriscore|lower == 'c' %}
-                    <img src="{% static 'img/nutriscore-c.svg' %}" alt="Nutriscore C" />
+                    <img class="mw-100" src="{% static 'img/nutriscore-c.svg' %}" alt="Nutriscore C" />
                 {% elif details.nutriscore|lower == 'd' %}
-                    <img src="{% static 'img/nutriscore-d.svg' %}" alt="Nutriscore D" />
+                    <img class="mw-100" src="{% static 'img/nutriscore-d.svg' %}" alt="Nutriscore D" />
                 {% elif details.nutriscore|lower == 'e' %}
-                    <img src="{% static 'img/nutriscore-e.svg' %}" alt="Nutriscore E" />
+                    <img class="mw-100" src="{% static 'img/nutriscore-e.svg' %}" alt="Nutriscore E" />
                 {% endif %}
             </div>
-            <div>
-                <img src="{{ details.image_url }}" Alt="{{ details.name }}" />
+            <div class="py-1">
+                <img class="mw-100" src="{{ details.image_url }}" Alt="{{ details.name }}" />
             </div>
         </div>
         <div class="col-lg-6 col-md-6 text-center">
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-    <div w-100 text-center p-3>
+    <div class="w-100 text-center p-4">
         <a href="https://world.openfoodfacts.org/product/{{ details.code }}"><button class="btn btn-rooibos">Voir la fiche complete sur OpenFoodFacts</button></a>
     </div>
 </content>
