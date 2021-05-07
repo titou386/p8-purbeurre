@@ -12,9 +12,7 @@
             {% if request.user.is_authenticated %}
                 <h1>Bonjour {{request.user.username}}</h1>
             {% else %}
-            
                 <form method="POST" class="d-flex align-items-end flex-column">{% csrf_token %}
-                    
                     <table>
                     <tr>
                         <td>

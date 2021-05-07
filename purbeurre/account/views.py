@@ -1,12 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
-from django.views.generic import FormView, ListView, DeleteView, CreateView, View
-from django.views.generic.edit import ProcessFormView
+from django.shortcuts import redirect
+from django.views.generic import ListView, DeleteView, CreateView, View
 from django.contrib.auth.views import LoginView
 
-from .models import Substitution, User
+from .models import Substitution
 from search.models import Product
-from django.contrib import messages
 
 from .forms import RegisterForm, LoginForm
 
@@ -40,13 +38,8 @@ class DeleteView(LoginRequiredMixin, DeleteView):
 
 class SaveView(LoginRequiredMixin, View):
     http_method_names = ['post']
-#    model = Substitution
-#    success_url = '/account/substitution/'
-#    fields = ['user', 'substitution']
-#
-#    def get_queryset(self):
-#        print(dir(self.request))
-#        return super().get_queryset()
+
     def post(self, request, *args, **kwargs):
-        Substitution(user=request.user, substitution=Product.objects.get(id=kwargs['product'])).save()
+        Substitution(user=request.user, substitution=Product.objects
+                     .get(id=kwargs['product'])).save()
         return redirect('my_substitutions')

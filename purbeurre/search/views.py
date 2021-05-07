@@ -23,9 +23,8 @@ class SubstitutionsView(ListView):
     model = Product
     template_name = 'search/substitutions.html'
     context_object_name = 'substitutions'
-    
-    def get_queryset(self):
 
+    def get_queryset(self):
         p = Product.objects.get(id=self.kwargs['pk'])
 
         return super().get_queryset()\
