@@ -8,6 +8,7 @@ from search.models import Product
 
 from .forms import RegisterForm, LoginForm
 
+
 class IndexView(LoginView):
     template_name = "account/index.html"
     form_class = LoginForm
@@ -23,6 +24,7 @@ class RegisterView(CreateView):
             return redirect('/account/')
         return super().dispatch(request, *args, **kwargs)
 
+
 class MySubstitutionsView(LoginRequiredMixin, ListView):
     model = Substitution
     template_name = 'account/my_substitutions.html'
@@ -35,6 +37,7 @@ class MySubstitutionsView(LoginRequiredMixin, ListView):
 class DeleteView(LoginRequiredMixin, DeleteView):
     model = Substitution
     success_url = '/account/substitutions/'
+
 
 class SaveView(LoginRequiredMixin, View):
     http_method_names = ['post']

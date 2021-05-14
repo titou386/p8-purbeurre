@@ -2,30 +2,39 @@
 {% load static %}
 
 {% block head %}
-<title>Mes substitutions</title>
+    <title>Mes substitutions</title>
 {% endblock %}
 
 {% block content %}
-<header class="masthead3 mw-100 m-0 row align-items-center justify-content-center">
-    <div class="text-white p-2">
-        <h3 class="text-center">Mes substitutions</h3>
-        <h4 class="d-none d-sm-block d-print-block">Produits de substitutions sauvegardés</h4>
-    </div>
-</header>
-<content class="row m-0 justify-content-center bg-biscuit">
-    {% for substitution in substitutions %}
-        <div class="card bg-caramel col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 m-3 p-0 text-center text-moules">
-            <h3 class="rounded-circle nutri-icon nutri-grade-{{ substitution.substitution.nutriscore|lower }}">{{ substitution.substitution.nutriscore|upper }}</h3>
-            <div class="img-product-list-div">
-                <img class="card-img-top" src="{{ substitution.substitution.image_url }}" alt="{{ substitution.substituion.name }} front view">
-            </div>
-            <div class="card-body row align-items-end">
-                <a class="text-moules col" href="/product/{{ substitution.substitution.id }}"><h6 class="card-title">{{ substitution.substitution.name }}</h6></a>
-                <form method="POST" class="row" action="{{ substitution.id }}/delete/">{% csrf_token %}<button class="card-text text-moules btn" type="submit"><i class="fas fa-trash-alt"></i> Supprimer de mes produits</button></form>
-            </div>
+    <header class="masthead3 mw-100 m-0 row align-items-center justify-content-center">
+        <div class="text-white p-2">
+            <h3 class="text-center">Mes substitutions</h3>
+            <h4 class="d-none d-sm-block d-print-block">Produits de substitutions sauvegardés</h4>
         </div>
-    {% endfor %}
-</content>
+    </header>
+    <content class="row m-0 justify-content-center bg-biscuit">
+        {% for substitution in substitutions %}
+            <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
+                <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ substitution.substitution.nutriscore|lower }}">{{ substitution.substitution.nutriscore|upper }}</h3>
+                <div class="row">
+                    <a class="col-12 p-0" href="/product/{{ substitution.substitution.id }}">
+                        <img class="card-img-top" src="{{ substitution.substitution.image_url }}" alt="{{ substitution.substituion.name }} front view">
+                    </a>
+                </div>
+                <div class="card-body row text-center">
+                    <a class="text-moules col-12" href="/product/{{ substitution.substitution.id }}">
+                        <h6 class="card-title">{{ substitution.substitution.name }}</h6>
+                    </a>
+                    <form method="POST" class="col-12" action="{{ substitution.id }}/delete/">
+                        {% csrf_token %}
+                        <button class="card-text text-moules btn" type="submit">
+                            <i class="fas fa-trash-alt"></i> Supprimer de mes produits
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </content>
 {% endblock %}
 
 

@@ -47,7 +47,9 @@ body {
   right: -1rem;
   top: -1rem;
   position: absolute;
+  z-index: 1;
 }
+
 
 content > div.card {
   max-width: 13rem;
@@ -55,10 +57,7 @@ content > div.card {
 }
 
 img.card-img-top {
-    max-height: 110px;
-    /* width: auto; */
-    max-width: 206px;
-    /* vertical-align: middle; */
+    max-height: 250px;
     object-fit: cover;
 }
 
@@ -147,6 +146,7 @@ hr.divider {
   color: var(--moules);
 }
 
+
 @media (min-width: 768px) {
   .show#navbarResponsive, .collapsing#navbarResponsive {
   background-color: rgba(255, 255, 255, 0);
@@ -166,7 +166,7 @@ hr.divider {
 
 
 header.masthead2 {
-  background: linear-gradient(to bottom, rgba(196, 85, 37, 0.4) 0%, rgba(196, 85, 37, 0.4) 100%), url("../../static/img/cookware.jpg");
+  background: linear-gradient(to bottom, rgba(196, 85, 37, 0.4) 0%, rgba(196, 85, 37, 0.4) 100%), url("../../static/img/kawin-harasai.jpg");
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
   background-position: center;
@@ -198,6 +198,7 @@ header.masthead5 {
 header.masthead2 h1 {
   font-size: 2.25rem;
 }
+
 @media (min-width: 600px) {
   header.masthead2 {
     height: 100vh;
@@ -212,6 +213,7 @@ header.masthead2 h1 {
     font-size: 3rem;
   }
 }
+
 @media (min-width: 1200px) {
   header.masthead2 h1 {
     font-size: 3.5rem;

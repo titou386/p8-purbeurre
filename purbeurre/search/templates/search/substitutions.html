@@ -13,36 +13,58 @@
 }
 </style>
 {% endblock %}
+
 {% block content %}
 <header class="masthead4 mw-100 m-0 row align-items-center justify-content-center">
     <div class="text-white p-2">
-
-            <h1 class="text-center white-text">{{ orig_product.name|title }}</h1>
-
-            </div>
+        <h1 class="text-center white-text">{{ orig_product.name|title }}</h1>
+    </div>
 </header>
+
 <content class="row m-0 justify-content-center bg-biscuit">
-            
-                    
-            {% for s in substitutions %}
-            <div class="card bg-caramel col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6 m-3 p-0 text-center text-moules">
-                <h3 class="rounded-circle nutri-icon nutri-grade-{{ s.nutriscore|lower }}">{{ s.nutriscore|upper }}</h3>
-                <div class="img-product-list-div">
-                <a href="/product/{{ s.id }}"><img class="card-img-top" src="{{ s.image_url }}" alt="{{ s.name }} front view"></a>
-                </div>
-                <div class="card-body row align-items-end">
-                    <a class="text-moules col" href="/product/{{ s.id }}"><h6 class="card-title">{{ s.name }}</h6></a>
-                    {% if user.is_authenticated %}
-                        <form method="POST" class="row" action="/account/substitutions/{{ s.id }}/save/">{% csrf_token %}<button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button></form>
-                    {% else %}
-                        <div class="row">
-                            <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
-                        </div>
-                    {% endif %}
-                </div>
+    {% for s in substitutions %}
+        <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
+            <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ s.nutriscore|lower }}">{{ s.nutriscore|upper }}</h3>
+            <div class="row">
+                <a class="col-12 p-0" href="/product/{{ s.id }}">
+                    <img class="card-img-top" src="{{ s.image_url }}" alt="{{ s.name }} front view">
+                </a>
             </div>
-            {% endfor %}
-        
+            <div class="card-body row text-center">
+                <a class="text-moules col-12" href="/product/{{ s.id }}">
+                    <h6 class="card-title">{{ s.name }}</h6>
+                </a>
+                {% if user.is_authenticated %}
+                    <form method="POST" class="col-12" action="/account/substitutions/{{ s.id }}/save/">
+                        {% csrf_token %}
+                        <button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button>
+                    </form>
+                {% else %}
+                    <div class="row">
+                        <a class="text-moules col-12" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="pagination col-12">
+        <span class="step-links text-moules col-12 text-center">
+            {% if page_obj.has_previous %}
+                <a class="text-moules" href="?page=1">&laquo; première</a>
+                <a class="text-moules" href="?page={{ page_obj.previous_page_number }}">précédent</a>
+            {% endif %}
+
+            <span class="current h6">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a class="text-moules" href="?page={{ page_obj.next_page_number }}">suivant</a>
+                <a class="text-moules" href="?page={{ page_obj.paginator.num_pages }}">dernière &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
     
 </content>
 {% endblock %}

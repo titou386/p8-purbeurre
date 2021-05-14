@@ -64,7 +64,8 @@ class OpenFoodFacts:
 
             return r['products']
         except(IndexError, TypeError) as e:
-            logging.error('openfoodfacts.py:OpenFoodFacts:get_products:{}'.format(e))
+            logging.error('openfoodfacts.py:OpenFoodFacts:get_products:{}'
+                          .format(e))
             return None
 
     def insert_product(self, product_dict):
@@ -81,7 +82,8 @@ class OpenFoodFacts:
         product_tags = {}
         # association = {'column DB': 'OpenFoodFacts_tag'}
         association = {'code': 'code',
-                       'name': ['product_name', 'product_name_fr', 'generic_name', 'generic_name_fr'],
+                       'name': ['product_name', 'product_name_fr',
+                                'generic_name', 'generic_name_fr'],
                        'image_url': 'image_url',
 
                        'quantity': 'quantity',
@@ -98,8 +100,12 @@ class OpenFoodFacts:
 
                        'energy_kcal_100g_unit': 'nutriments:energy-kcal_unit',
                        'fat_100g_unit': 'nutriments:fat_unit',
-                       'saturated_fat_100g_unit': 'nutriments:saturated-fat_unit',
-                       'carbohydrates_100g_unit': 'nutriments:carbohydrates_unit',
+                       'saturated_fat_100g_unit':
+                       'nutriments:saturated-fat_unit',
+
+                       'carbohydrates_100g_unit':
+                       'nutriments:carbohydrates_unit',
+
                        'sugars_100g_unit': 'nutriments:sugars_unit',
                        'fiber_100g_unit': 'nutriments:fiber_unit',
                        'proteins_100g_unit': 'nutriments:proteins_unit',
@@ -125,7 +131,8 @@ class OpenFoodFacts:
         try:
             prod_obj = Product.objects.get_or_create(**product_tags)[0]
         except(IntegrityError, DataError) as e:
-            logging.error('openfoodfacts.py:OpenFoodFacts:insert_product:{}'.format(e))
+            logging.error('openfoodfacts.py:OpenFoodFacts:insert_product:{}'
+                          .format(e))
             return
 
         # Categories insertion.
@@ -171,7 +178,8 @@ class OpenFoodFacts:
         try:
             category_object.products.add(product_object)
         except(IntegrityError) as e:
-            logging.error('openfoodfacts.py:OpenFoodFacts:insert_product_category:{}'.format(e))
+            logging.error('openfoodfacts.py:OpenFoodFacts\
+:insert_product_category:{}'.format(e))
 
     def insert_category(self, category_name):
         """Insert one category in database.
@@ -185,7 +193,8 @@ class OpenFoodFacts:
         try:
             return Category.objects.get_or_create(name=category_name)[0]
         except(IntegrityError, DataError) as e:
-            logging.error('openfoodfacts.py:OpenFoodFacts:insert_category:{}'.format(e))
+            logging.error('openfoodfacts.py:OpenFoodFacts:insert_category:{}'
+                          .format(e))
             return
 
 
