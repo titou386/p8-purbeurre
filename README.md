@@ -34,7 +34,6 @@ DEBUG = True
 Import some  products in your database from OpenFoodFacts
 ex : 10 categories and 5 products in each category which makes a total of 50 products imported.
 ```bash
-$ cd purbeurre
 $ python manage.py import -c 10 -p 5
 ```
 For more info :
