@@ -8,5 +8,6 @@ urlpatterns = [
          name='substitutions'),
 
     path('product/<pk>/', views.ProductDetailsView.as_view(), name='details'),
-    path('search/', views.ResultsView.as_view(), name='search')
+    path('search/', views.ResultsView.as_view(), name='search'),
+    path('legal/', views.legal, name='legal')
 ]
