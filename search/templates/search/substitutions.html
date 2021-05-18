@@ -25,23 +25,32 @@
     {% for s in substitutions %}
         <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
             <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ s.nutriscore|lower }}">{{ s.nutriscore|upper }}</h3>
-            <div class="row">
+            <div class="row pb-1">
                 <a class="col-12 p-0" href="/product/{{ s.id }}">
                     <img class="card-img-top" src="{{ s.image_url }}" alt="{{ s.name }} front view">
                 </a>
             </div>
-            <div class="card-body row text-center">
-                <a class="text-moules col-12" href="/product/{{ s.id }}">
-                    <h6 class="card-title">{{ s.name }}</h6>
-                </a>
+            <div class="row text-center">
+                <div class="col">
+                    <a class="text-moules" href="/product/{{ s.id }}">
+                        <h6 class="card-title">{{ s.name }}</h6>
+                    </a>
+                </div>
+            </div>
                 {% if user.is_authenticated %}
-                    <form method="POST" class="col-12" action="/account/substitutions/{{ s.id }}/save/">
-                        {% csrf_token %}
-                        <button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button>
-                    </form>
+                    <div class="row text-center">
+                        <div class="col">
+                            <form method="POST" action="/account/substitutions/{{ s.id }}/save/">
+                                {% csrf_token %}
+                                <button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button>
+                            </form>
+                        </div>
+                    </div>
                 {% else %}
-                    <div class="row">
-                        <a class="text-moules col-12" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                    <div class="row text-center">
+                        <div class="col">
+                            <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                        </div>
                     </div>
                 {% endif %}
             </div>
