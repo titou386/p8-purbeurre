@@ -4,10 +4,8 @@ python:
 
 before_script:
   - pip install -r requirements.txt
-  - export $(cat env_travis | xargs)
-  - export SECRET_KEY=$(python3 -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
 
-env: DJANGO_SETTINGS_MODULE="purbeurre.settings"
+env: DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
 
 services:
   - postgresql
