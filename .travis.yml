@@ -5,7 +5,13 @@ python:
 before_script:
   - pip install -r requirements.txt
 
-env: DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
+env:
+  - DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
+  global:
+    - MOZ_HEADLESS=1
+
+addons:
+  firefox: lastest
 
 services:
   - postgresql
