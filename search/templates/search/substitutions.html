@@ -49,7 +49,11 @@
                 {% else %}
                     <div class="row text-center">
                         <div class="col">
-                            <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                            {% if page_obj.has_previous %}
+                                <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/?page={{ page_obj.number }}">Identifiez-vous pour sauvegarder</a>
+                            {% else %}
+                                <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endif %}
