@@ -1,4 +1,3 @@
-SECRET_KEY=""
 DB_NAME="travisci"
 DB_USER="postgres"
 DB_PASSWORD=""
