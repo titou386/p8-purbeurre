@@ -4,14 +4,18 @@ python:
 
 before_script:
   - pip install -r requirements.txt
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.29.0/geckodriver-v0.29.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.29.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$PWD/geckodriver
 
 env:
-  - DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
   global:
     - MOZ_HEADLESS=1
+    - DJANGO_SETTINGS_MODULE="purbeurre.settings.travis"
 
 addons:
-  firefox: lastest
+  firefox: "88.0"
 
 services:
   - postgresql
