@@ -129,7 +129,7 @@ class OpenFoodFacts:
                 pass
 
         try:
-            prod_obj = Product.objects.get_or_create(**product_tags)[0]
+            prod_obj = Product.objects.update_or_create(**product_tags)[0]
         except(IntegrityError, DataError) as e:
             logging.error('openfoodfacts.py:OpenFoodFacts:insert_product:{}'
                           .format(e))
@@ -191,7 +191,7 @@ class OpenFoodFacts:
             int: Return an index
         """
         try:
-            return Category.objects.get_or_create(name=category_name)[0]
+            return Category.objects.update_or_create(name=category_name)[0]
         except(IntegrityError, DataError) as e:
             logging.error('openfoodfacts.py:OpenFoodFacts:insert_category:{}'
                           .format(e))

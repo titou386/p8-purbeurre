@@ -51,5 +51,6 @@ class ProductDetailsView(DetailView):
     template_name = 'search/details.html'
     context_object_name = 'details'
 
+
 def legal(request):
     return render(request, 'search/legal.html')

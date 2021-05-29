@@ -58,6 +58,7 @@ class SubstitutionViewTestCase(TestCase):
         response = self.client.get(f'/product/{p.id}/substitutions/')
         self.assertEqual(len(response.context_data['substitutions']), 0)
 
+
 class LegalPageTestCase(TestCase):
     def test_legal_page(self):
         response = self.client.get(reverse('legal'))
