@@ -1,12 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import ListView, DeleteView, CreateView, View
+from django.views.generic import ListView, DeleteView, CreateView, FormView, View
 from django.contrib.auth.views import LoginView
 
-from .models import Substitution
+from .models import User, Substitution
 from search.models import Product
 
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, ProfileUpdateForm
+
+
+class Session(LoginRequiredMixin):
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user)
 
 
 class IndexView(LoginView):
@@ -21,20 +26,32 @@ class RegisterView(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('/account/')
+            return redirect('account')
         return super().dispatch(request, *args, **kwargs)
 
+class ProfileUpdateView(LoginRequiredMixin, FormView):
+    form_class = ProfileUpdateForm
+    template_name = 'account/profile_update.html'
 
-class MySubstitutionsView(LoginRequiredMixin, ListView):
+    def get_form_kwargs(self):
+        return {'user': self.request.user}
+
+    def post(self, request, *args, **kwargs):
+        u = User.objects.get(id=self.request.user.id)
+        if request.POST['email']:
+            u.email = request.POST['email']
+        if request.POST['password1']:
+            u.set_password(request.POST['password1'])
+        u.save()
+        return redirect('account')
+
+class MySubstitutionsView(Session, ListView):
     model = Substitution
     template_name = 'account/my_substitutions.html'
     context_object_name = 'substitutions'
 
-    def get_queryset(self):
-        return super().get_queryset().filter(user=self.request.user)
 
-
-class DeleteView(LoginRequiredMixin, DeleteView):
+class DeleteView(Session, DeleteView):
     model = Substitution
     success_url = '/account/substitutions/'
 

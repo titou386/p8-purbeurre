@@ -4,6 +4,7 @@ from .base import *
 DEBUG = True
 
 SECRET_KEY = '=&bw(n+j##9-j3y5ok6x($s)agm6@7*!ossgmirh$ex7k3wv^u'
+ALLOWED_HOSTS = ['localhost']
 
 DATABASES = {
     'default': {

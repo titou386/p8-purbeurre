@@ -8,9 +8,10 @@
     <header class="masthead2">
         <div class="container h-100">
             <div class="row h-100 align-items-center justify-content-center">
-                <div class="col-auto col-md-10 col-lg-6 col-xl-4">
+                <div class="col-auto col-md-10 col-lg-6 col-xl-5">
                 {% if request.user.is_authenticated %}
-                    <h1>Bonjour {{request.user.username}}</h1>
+                    <h1>Bonjour, {{request.user.username}}.</h1>
+                    <a href="{% url 'profile_update' %}" class="text-white">Changer mon email/mot de passe</a>
                 {% else %}
                     <form method="POST" class="d-flex align-items-end flex-column">{% csrf_token %}
                         <table>
@@ -29,7 +30,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <a href="register/" class="text-white">Pas de compte ?</a>
+                                    <a href="{% url 'register' %}" class="text-white">Pas de compte ?</a>
                                 </td>
                             </tr>
                         </table>

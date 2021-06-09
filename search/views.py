@@ -12,10 +12,11 @@ class ResultsView(ListView):
     model = Product
     template_name = 'search/results.html'
     context_object_name = 'results'
+    paginate_by = 9
 
     def get_queryset(self):
         return super().get_queryset()\
-            .filter(name__icontains=self.request.GET['query'])[:30]
+            .filter(name__icontains=self.request.GET['query'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -14,25 +14,42 @@
         <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
             <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ r.nutriscore|lower }}">{{ r.nutriscore|upper }}</h3>
             <div class="row pb-1">
-                <a class="col-12 p-0" href="/product/{{ r.id }}">
+                <a class="col-12 p-0" href="{% url 'details' pk=r.id %}">
                     <img class="card-img-top" src="{{ r.image_url }}" alt="{{ r.name }} front view">
                 </a>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <a class="text-moules" href="/product/{{ r.id }}">
+                    <a class="text-moules" href="{% url 'details' pk=r.id %}">
                         <h6 class="">{{ r.name }}</h6>
                     </a>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <a class="text-moules" href="/product/{{ r.id }}/substitutions/">
+                    <a class="text-moules" href="{% url 'substitutions' pk=r.id %}">
                         <h6 class="">Voir les substituts</h6>
                     </a>
                 </div>
             </div>
         </div>
     {% endfor %}
+    <div class="pagination col-12">
+        <span class="step-links text-moules col-12 text-center">
+            {% if page_obj.has_previous %}
+                <a class="text-moules" href="?query={{ query }}&page=1">&laquo; première</a>
+                <a class="text-moules" href="?query={{ query }}&page={{ page_obj.previous_page_number }}">précédent</a>
+            {% endif %}
+
+            <span class="current h6">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a class="text-moules" href="?query={{ query }}&page={{ page_obj.next_page_number }}">suivant</a>
+                <a class="text-moules" href="?query={{ query }}&page={{ page_obj.paginator.num_pages }}">dernière &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </content>
 {% endblock %}

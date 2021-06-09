@@ -1,6 +1,6 @@
 from django.test import TestCase
 from selenium import webdriver
-from account.models import User
+from account.models import User, Substitution
 from search.models import Product
 
 
@@ -87,16 +87,20 @@ class LoginViewTestCase(TestCase):
         self.assertTrue(response)
 
 
-class SaveAndMySubstitionsViewTestCase(TestCase):
+class MySubstitionsViewTestCase(TestCase):
 
     def setUp(self):
         u = User.objects.create(username='Pauline', email='pauline@free.fr')
         u.set_password('1234')
         u.save()
+        u2 = User.objects.create(username='Michelle', email='michelle@free.fr')
+        u2.set_password('1234')
+        u2.save()
         self.p = Product.objects.create(name="Nutella 650g",
                                         code="758511125439",
                                         image_url="https://nut.fr/prod.jpg",
                                         nutriscore='e')
+        Substitution.objects.create(user=u2, substitution=self.p)
 
     def test_save_substitution(self):
 
@@ -107,3 +111,71 @@ class SaveAndMySubstitionsViewTestCase(TestCase):
             .post(f'/account/substitutions/{self.p.id}/save/')
         response = self.client.get(response.url)
         self.assertContains(response, "Nutella 650g", html=True)
+
+    def test_delete_substitution_on_one_account(self):
+
+        response = self.client\
+            .post(f'/account/substitutions/{self.p.id}/delete/')
+        response = self.client.get(response.url)
+
+        self.client.get('/account/logout/')
+        self.client.post('/account/',
+                         {'username': 'michelle@free.fr',
+                          'password': '1234'})
+        response2 = self.client.get('/account/substitutions/')
+        self.assertNotContains(response, "Nutella 650g", html=True)
+        self.assertContains(response2, "Nutella 650g", html=True)
+
+class ProfileUpdateViewTestCase(TestCase):
+    def setUp(self):
+        u = User.objects.create(username='Paul', email='paul@free.fr')
+        u.set_password('1234')
+        u.save()
+
+    def test_change_password_without_email_field(self):
+        self.client.post('/account/',
+                         {'username': 'paul@free.fr',
+                          'password': '1234'})
+        self.client.post('/account/update/',
+                         {'email': '',
+                          'password1': '4321',
+                          'password2': '4321'})
+        self.client.get('/account/logout/')
+        response = self.client.post('/account/',
+                                    {'username': 'paul@free.fr',
+                                     'password': '4321'})
+        response = self.client.get(response.url)
+        self.client.get('/account/logout/')
+        self.assertContains(response, "Bonjour, Paul.", html=True)
+
+    def test_change_email_without_password_field(self):
+        self.client.post('/account/',
+                         {'username': 'paul@free.fr',
+                          'password': '1234'})
+        self.client.post('/account/update/',
+                         {'email': 'paul.martin@free.fr',
+                          'password1': '',
+                          'password2': ''})
+        self.client.get('/account/logout/')
+        response = self.client.post('/account/',
+                                    {'username': 'paul.martin@free.fr',
+                                     'password': '1234'})
+        response = self.client.get(response.url)
+        self.client.get('/account/logout/')
+        self.assertContains(response, "Bonjour, Paul.", html=True)
+
+    def test_change_email_and_password_both(self):
+        self.client.post('/account/',
+                         {'username': 'paul@free.fr',
+                          'password': '1234'})
+        self.client.post('/account/update/',
+                         {'email': 'paul.martin@yahoo.fr',
+                          'password1': '5678',
+                          'password2': '5678'})
+        self.client.get('/account/logout/')
+        response = self.client.post('/account/',
+                                    {'username': 'paul.martin@yahoo.fr',
+                                     'password': '5678'})
+        response = self.client.get(response.url)
+        self.assertContains(response, "Bonjour, Paul.", html=True)
+

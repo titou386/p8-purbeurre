@@ -26,13 +26,13 @@
         <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
             <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ s.nutriscore|lower }}">{{ s.nutriscore|upper }}</h3>
             <div class="row pb-1">
-                <a class="col-12 p-0" href="/product/{{ s.id }}">
+                <a class="col-12 p-0" href="{% url 'details' pk=s.id %}">
                     <img class="card-img-top" src="{{ s.image_url }}" alt="{{ s.name }} front view">
                 </a>
             </div>
             <div class="row text-center">
                 <div class="col">
-                    <a class="text-moules" href="/product/{{ s.id }}">
+                    <a class="text-moules" href="{% url 'details' pk=s.id %}">
                         <h6 class="card-title">{{ s.name }}</h6>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                 {% if user.is_authenticated %}
                     <div class="row text-center">
                         <div class="col">
-                            <form method="POST" action="/account/substitutions/{{ s.id }}/save/">
+                            <form method="POST" action="{% url 'save' product=s.id %}">
                                 {% csrf_token %}
                                 <button class="card-text text-moules btn" type="submit"><i class="fas fa-save"></i> Enregistrer dans mes produits</button>
                             </form>
@@ -50,9 +50,9 @@
                     <div class="row text-center">
                         <div class="col">
                             {% if page_obj.has_previous %}
-                                <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/?page={{ page_obj.number }}">Identifiez-vous pour sauvegarder</a>
+                                <a class="text-moules" href="{% url 'account' %}?next={% url 'substitutions' pk=orig_product.id %}?page={{ page_obj.number }}">Identifiez-vous pour sauvegarder</a>
                             {% else %}
-                                <a class="text-moules" href="/account/?next=/product/{{ orig_product.id }}/substitutions/">Identifiez-vous pour sauvegarder</a>
+                                <a class="text-moules" href="{% url 'account' %}?next={% url 'substitutions' pk=orig_product.id %}">Identifiez-vous pour sauvegarder</a>
                             {% endif %}
                         </div>
                     </div>

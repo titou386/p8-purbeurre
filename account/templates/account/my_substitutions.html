@@ -17,20 +17,20 @@
             <div class="bg-caramel col-lg-3 col-10 m-3 container text-moules">
                 <h3 class="rounded-circle text-center nutri-icon nutri-grade-{{ substitution.substitution.nutriscore|lower }}">{{ substitution.substitution.nutriscore|upper }}</h3>
                 <div class="row pb-1">
-                    <a class="p-0 col-12" href="/product/{{ substitution.substitution.id }}">
+                    <a class="p-0 col-12" href="{% url 'details' pk=substitution.substitution.id %}">
                         <img class="card-img-top" src="{{ substitution.substitution.image_url }}" alt="{{ substitution.substituion.name }} front view">
                     </a>
                 </div>
                 <div class="row text-center">
                     <div class="col">
-                        <a class="text-moules" href="/product/{{ substitution.substitution.id }}">
+                        <a class="text-moules" href="{% url 'details' pk=substitution.substitution.id %}">
                             <h6 class="card-title">{{ substitution.substitution.name }}</h6>
                         </a>
                     </div>
                 </div>
                 <div class="row text-center">
                     <div class="col">
-                        <form method="POST" action="{{ substitution.id }}/delete/">
+                        <form method="POST" action="{% url 'delete' pk=substitution.id %}">
                             {% csrf_token %}
                             <button class="card-text text-moules btn" type="submit">
                                 <i class="fas fa-trash-alt"></i> Supprimer de mes produits

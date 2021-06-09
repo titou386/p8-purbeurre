@@ -1,0 +1,39 @@
+{% extends 'search/base.html' %}
+
+{% block title %}
+    <title>Inscription</title>
+{% endblock %}
+
+{% block content %}
+<header class="masthead2">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="login">
+
+                {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+
+                {% endif %}
+                    <h2>Mise à jour des informations</h2>
+                    <p>Remplissez les champs que vous voulez mettre à jour.</p>
+
+            <form method="post" class="d-flex align-items-center flex-column" autocomplete="off">
+    
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                     <tr>
+                        <td></td>
+                        <td><input type="submit" name="submit" value="Modifier" class="btn btn-rooibos">
+                            <a href="{% url 'account' %}" class="text-white">Annuler</a></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</header>
+{% endblock %}

@@ -127,8 +127,22 @@ if [[ ${POSTGRESQL_LOCAL} == 'YES' ]]; then
 EOF
 fi
 ######################################################################################
-echo "Clone du repo ..."
-#git clone ${REPO_URL}
+if [[ -d $REPO ]]; then
+    echo "Mise à jour ..."
+    cd $REPO
+    git pull
+    retVal=$?
+    cd ..
+else
+    echo "Clone du repo ..."
+    git clone ${REPO_URL}
+    retVal=$?
+fi
+if [ $retVal -ne 0 ]; then
+    echo "Erreur..."
+    exit $retVal
+fi
+
 ######################################################################################
 echo "Configuration de l'environnement de travail ..."
 
