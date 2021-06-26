@@ -4,6 +4,7 @@ from .models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
 
+
 class CleanPasswordMixin:
     def clean_password2(self):
         if not self.cleaned_data.get('password1') and self.instance.user:
@@ -20,7 +21,8 @@ class CleanPasswordMixin:
 class CleanEmailMixin:
     def clean_email(self):
         if hasattr(self, 'user'):
-            if self.cleaned_data['email'] and self.cleaned_data['email'].lower() == self.user.email:
+            if self.cleaned_data['email'] and \
+               self.cleaned_data['email'].lower() == self.user.email:
                 return None
 
         email = self.cleaned_data['email'].lower()
@@ -29,7 +31,6 @@ class CleanEmailMixin:
         if r.count():
             raise ValidationError("L'email est déjà enregistré")
         return email
-
 
 
 class LoginForm(AuthenticationForm):
@@ -71,7 +72,6 @@ class RegisterForm(ModelForm, CleanPasswordMixin):
             raise ValidationError("L'email est déjà enregistré")
         return email
 
-
     def save(self, commit=True):
         user = User.objects.create_user(
             self.cleaned_data['username'],
@@ -80,14 +80,19 @@ class RegisterForm(ModelForm, CleanPasswordMixin):
         )
         return user
 
+
 class ProfileUpdateForm(ModelForm, CleanPasswordMixin):
-    email = forms.EmailField(required=False, label='Email', widget=forms
+    email = forms.EmailField(required=False,
+                             label='Email',
+                             widget=forms
                              .EmailInput(attrs={'class': 'form-control'}))
-    password1 = forms.CharField(required=False, label='Mot de passe', widget=forms
+    password1 = forms.CharField(required=False,
+                                label='Mot de passe', widget=forms
                                 .PasswordInput(attrs={'class':
                                                       'form-control'}))
 
-    password2 = forms.CharField(required=False, label='Vérification du mot de passe',
+    password2 = forms.CharField(required=False,
+                                label='Vérification du mot de passe',
                                 widget=forms
                                 .PasswordInput(attrs={'class':
                                                       'form-control'}))
@@ -99,5 +104,3 @@ class ProfileUpdateForm(ModelForm, CleanPasswordMixin):
     class Meta:
         model = User
         fields = ['email', 'password1', 'password2']
-
-    

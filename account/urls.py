@@ -11,6 +11,10 @@ urlpatterns = [
     path('substitutions/', views.MySubstitutionsView.as_view(),
          name='my_substitutions'),
 
-    path('substitutions/<pk>/delete/', views.DeleteView.as_view(), name='delete'),
-    path('substitutions/<int:product>/save/', views.SaveView.as_view(), name='save')
+    path('substitutions/<pk>/delete/',
+         views.DeleteView.as_view(),
+         name='delete'),
+    path('substitutions/<int:product>/save/',
+         views.SaveView.as_view(),
+         name='save')
 ]

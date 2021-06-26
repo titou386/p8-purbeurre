@@ -4,7 +4,7 @@ import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(", ")
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(",")
 
 sentry_sdk.init(
     dsn=os.getenv('DSN'),

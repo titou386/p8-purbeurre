@@ -17,7 +17,6 @@ class Command(BaseCommand):
 Number of products imported in each category')
 
     def handle(self, *args, **options):
-
         i = 0
         openfoodfact = OpenFoodFacts(options['categories'],
                                      options['products'])

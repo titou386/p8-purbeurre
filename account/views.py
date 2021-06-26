@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import ListView, DeleteView, CreateView, FormView, View
+from django.views.generic import ListView, DeleteView, CreateView, FormView,\
+    View
 from django.contrib.auth.views import LoginView
 
 from .models import User, Substitution
@@ -29,6 +30,7 @@ class RegisterView(CreateView):
             return redirect('account')
         return super().dispatch(request, *args, **kwargs)
 
+
 class ProfileUpdateView(LoginRequiredMixin, FormView):
     form_class = ProfileUpdateForm
     template_name = 'account/profile_update.html'
@@ -44,6 +46,7 @@ class ProfileUpdateView(LoginRequiredMixin, FormView):
             u.set_password(request.POST['password1'])
         u.save()
         return redirect('account')
+
 
 class MySubstitutionsView(Session, ListView):
     model = Substitution

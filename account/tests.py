@@ -126,6 +126,7 @@ class MySubstitionsViewTestCase(TestCase):
         self.assertNotContains(response, "Nutella 650g", html=True)
         self.assertContains(response2, "Nutella 650g", html=True)
 
+
 class ProfileUpdateViewTestCase(TestCase):
     def setUp(self):
         u = User.objects.create(username='Paul', email='paul@free.fr')
@@ -178,4 +179,3 @@ class ProfileUpdateViewTestCase(TestCase):
                                      'password': '5678'})
         response = self.client.get(response.url)
         self.assertContains(response, "Bonjour, Paul.", html=True)
-
