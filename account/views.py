@@ -1,13 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.views.generic import ListView, DeleteView, CreateView, FormView,\
-    View
-from django.contrib.auth.views import LoginView
 
-from .models import User, Substitution
+from django.views.generic import (
+    ListView, DeleteView, CreateView, FormView, View)
+
+from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.http import HttpResponseRedirect
+
+from .models import Substitution
 from search.models import Product
 
-from .forms import RegisterForm, LoginForm, ProfileUpdateForm
+from .forms import RegisterForm, LoginForm, PasswordUpdateForm, EmailUpdateForm
 
 
 class Session(LoginRequiredMixin):
@@ -31,21 +34,20 @@ class RegisterView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProfileUpdateView(LoginRequiredMixin, FormView):
-    form_class = ProfileUpdateForm
+class PasswordUpdateView(LoginRequiredMixin, PasswordChangeView):
+    form_class = PasswordUpdateForm
     template_name = 'account/profile_update.html'
+    success_url = '/account/'
 
-    def get_form_kwargs(self):
-        return {'user': self.request.user}
 
-    def post(self, request, *args, **kwargs):
-        u = User.objects.get(id=self.request.user.id)
-        if request.POST['email']:
-            u.email = request.POST['email']
-        if request.POST['password1']:
-            u.set_password(request.POST['password1'])
-        u.save()
-        return redirect('account')
+class EmailUpdateView(LoginRequiredMixin, FormView):
+    form_class = EmailUpdateForm
+    template_name = 'account/profile_update.html'
+    success_url = '/account/'
+
+    def form_valid(self, form):
+        form.save(self.request.user)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class MySubstitutionsView(Session, ListView):

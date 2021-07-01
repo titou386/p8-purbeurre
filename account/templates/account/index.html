@@ -11,7 +11,12 @@
                 <div class="col-auto col-md-10 col-lg-6 col-xl-5">
                 {% if request.user.is_authenticated %}
                     <h1>Bonjour, {{request.user.username}}.</h1>
-                    <a href="{% url 'profile_update' %}" class="text-white">Changer mon email/mot de passe</a>
+                    <div class class="text-white">
+                        Changer  
+                        <a href="{% url 'email_update' %}" class="text-white">mon email</a>
+                        /
+                        <a href="{% url 'pass_update' %}" class="text-white">mon mot de passe</a>
+                    </div>
                 {% else %}
                     <form method="POST" class="d-flex align-items-end flex-column">{% csrf_token %}
                         <table>
